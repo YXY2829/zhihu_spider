@@ -61,10 +61,8 @@ class Zhihu(object):
         print self.driver.title
         while True:
             try:
-                print '-----find------'
                 load=self.driver.find_element_by_xpath('//*[@id="zh-profile-follows-list"]/a[contains(@aria-role, "button")]')
                 ActionChains(self.driver).move_to_element(load).perform()
-                print '-----load------'
             except:
                 break
 
