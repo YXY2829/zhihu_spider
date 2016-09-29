@@ -22,7 +22,7 @@ class People_info(peewee.Model):
     answer = peewee.IntegerField(8)
 
     class Meta:
-        database = MySQLDatabase('mydb',user='root',passwd='rootroot')
+        database = MySQLDatabase('zhihu',user='root',passwd='rootroot')
 
 
 class Followee(peewee.Model):
@@ -30,7 +30,7 @@ class Followee(peewee.Model):
     page_url = peewee.CharField(128)
 
     class Meta:
-        database = MySQLDatabase('mydb',user='root',passwd='rootroot')
+        database = MySQLDatabase('zhihu',user='root',passwd='rootroot')
 
 
 class Zhihu(object):
@@ -83,10 +83,9 @@ class Zhihu(object):
         print self.driver.title
         while True:
             try:
-                print '-----find------'
                 load=self.driver.find_element_by_xpath('//*[@id="zh-profile-follows-list"]/a[contains(@aria-role, "button")]')
                 ActionChains(self.driver).move_to_element(load).perform()
-                print '-----load------'
+                print '-----loading------'
             except:
                 break
 
@@ -112,11 +111,11 @@ class Zhihu(object):
         self.quit()
 
 def main():
-    # ua = UserAgent()
-    # dcap = dict(DesiredCapabilities.PHANTOMJS)
-    # dcap['phantomjs.page.settings.useragent'] = ua.random
-    # zhihu = Zhihu(driver = webdriver.PhantomJS(desired_capabilities = dcap), account = '', passwd = '')
-    zhihu=Zhihu(driver=webdriver.Chrome(), account = 'account', passwd = 'passwd')
+    ua = UserAgent()
+    dcap = dict(DesiredCapabilities.PHANTOMJS)
+    dcap['phantomjs.page.settings.useragent'] = ua.random
+    zhihu = Zhihu(driver = webdriver.PhantomJS(desired_capabilities = dcap), account = 'account', passwd = 'passwd')
+    # zhihu=Zhihu(driver=webdriver.Chrome(), account = 'account', passwd = 'passwd')
     zhihu.run()
 
 if __name__ == '__main__':
